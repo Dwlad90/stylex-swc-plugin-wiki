@@ -1,30 +1,41 @@
-name: Clean up branch caches
+name: Upload to Wiki
+
 on:
   push:
     branches:
-      - develop
       - master
-  delete:
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.ref }}-${{ github.event_name }}
+  group: ${{ github.workflow }}
   cancel-in-progress: true
 
 jobs:
-  cleanup:
+  upload-to-wiki:
     runs-on: ubuntu-latest
-    if: false
     steps:
-      - name: 🧹 Cleanup
-        id: cleanup
-        shell: bash
-        run: |
-          REF="${{ github.ref }}"
+      - name: Checkout source repository
+        uses: actions/checkout@v4
 
-          run_id=$(gh workflow run cleanup.yaml \
-            --ref ${{ github.ref }} \
-            --field reference=$REF \
-            --repo ${{ github.repository }}) || exit 1
+      - name: Checkout wiki repository
+        uses: actions/checkout@v4
+        with:
+          repository: Dwlad90/stylex-swc-plugin.wiki
+          path: wiki
+          token: ${{ secrets.WIKI_TOKEN }}
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_REPO: ${{ github.repository }}
+          GITHUB_TOKEN: ${{ secrets.WIKI_TOKEN }}
+
+      - name: Copy files to wiki
+        run: |
+          rm -rf .git
+          cp -rf ./*.md wiki/
+          cd wiki
+
+      - name: Commit and push changes
+        run: |
+          cd wiki
+          git config --global user.name "${GITHUB_ACTOR}"
+          git config --global user.email "${GITHUB_ACTOR_ID}+${GITHUB_ACTOR}@users.noreply.github.com"
+          git add .
+          git commit -m "Update wiki from main repository" || echo "No changes to commit"
+          git push origin HEAD:master

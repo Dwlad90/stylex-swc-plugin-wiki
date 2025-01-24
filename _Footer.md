@@ -8,7 +8,14 @@ Quick Links:
 
 ### Contributing to Wiki
 
-The wiki repository is maintained separately from the main project. All changes must be proposed through forks to the [wiki repository](https://github.com/Dwlad90/stylex-swc-plugin/wiki).
+To contribute to the wiki documentation:
+
+1. Fork the [wiki repository](https://github.com/Dwlad90/stylex-swc-plugin-wiki)
+2. Make your changes in your forked repository
+3. Submit a Pull Request
+4. Wait for review and approval
+
+All wiki changes must go through Pull Requests - direct edits are not allowed.
 
 Note: Make sure to sync your fork regularly to avoid conflicts.
 

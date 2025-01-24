@@ -1,4 +1,4 @@
-# Welcome to Stylex in Rust wiki
+# Welcome to Stylex in Rust Wiki
 
 A Rust transformer for compiling StyleX code. This plugin enables the use of Facebook's [StyleX](https://github.com/facebook/stylex/) CSS-in-JS solution written in Rust, with the [NAPI-RS](https://napi.rs/) framework for building pre-compiled Node.js addons in Rust.
 
