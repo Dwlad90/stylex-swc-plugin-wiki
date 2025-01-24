@@ -6,6 +6,8 @@ Quick Links:
 [Pull Requests](https://github.com/Dwlad90/stylex-swc-plugin/pulls) |
 [Releases](https://github.com/Dwlad90/stylex-swc-plugin/releases)
 
+---
+
 ### Contributing to Wiki
 
 To contribute to the wiki documentation:
