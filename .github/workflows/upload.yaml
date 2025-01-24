@@ -1,0 +1,30 @@
+name: Clean up branch caches
+on:
+  push:
+    branches:
+      - develop
+      - master
+  delete:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.ref }}-${{ github.event_name }}
+  cancel-in-progress: true
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    if: false
+    steps:
+      - name: 🧹 Cleanup
+        id: cleanup
+        shell: bash
+        run: |
+          REF="${{ github.ref }}"
+
+          run_id=$(gh workflow run cleanup.yaml \
+            --ref ${{ github.ref }} \
+            --field reference=$REF \
+            --repo ${{ github.repository }}) || exit 1
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
